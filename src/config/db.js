@@ -1,14 +1,27 @@
-import mongoose from "mongoose";
-import logger from "../logger/logger.js";
+import pg from "pg";
+// import logger from "../logger/logger.js";
 
-const connectDB = async () => {
-    try {
-        const conn = await mongoose.connect(process.env.DB_URI);
-        logger.info(`Connected to DB ${conn.connection.host}`);
-    } catch (err) {
-        logger.error(err);
-        process.exit(1);
-    }
-};
+const pool = new pg.Pool({
+    user: "postgres",
+    password: "sanyog",
+    host: "localhost",
+    port: "5432",
+    database: "reel_dump_dev",
+});
 
-export default connectDB;
+// const connectDB = async () => {
+//     try {
+//         const con = mysql.createConnection({
+//             host: "localhost",
+//             user: "root",
+//             password: "sanyog",
+//         });
+//         const connection = con.connect();
+//         logger.info(`Connected to DB ${connection}`);
+//     } catch (err) {
+//         logger.error(err);
+//         process.exit(1);
+//     }
+// };
+
+export default pool;

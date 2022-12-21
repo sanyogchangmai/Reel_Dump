@@ -3,12 +3,14 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-import connectDB from "./config/db.js";
+// import connectDB from "./config/db.js";
+// import pool from "./config/db.js";
 import logger from "./logger/logger.js";
 import morganMiddleware from "./middlewares/morganMiddleware.js";
 import errorHandler from "./middlewares/errorMiddleware.js";
 
 import authRouter from "./routes/authRoutes.js";
+import reelsRouter from "./routes/reelsRoute.js";
 
 //* Initialize constants
 const PORT = process.env.PORT || 8000;
@@ -17,7 +19,7 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 
 // TODO - connect to db
-connectDB();
+// connectDB();
 
 // * Middleware to grab request body
 app.use(express.json());
@@ -43,6 +45,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/reels", reelsRouter);
 
 // * Override express default handler
 app.use(errorHandler);
